@@ -1,0 +1,12 @@
+1.分类数据集划分
+数据集分为：
+训练集-train_dataset
+测试集-test_dataset
+预测集-predict_dataset
+
+2.数据集内文件命名：
+数据集中动作分为8类，其中大臂四类，以“big_arm_0x”命名，小臂以“small_arm_0x”命名，肩部以“arm“命名。
+无动作时，文件夹命名为“arm/big/small_arm_no_move”
+
+3.数据保存形式：
+为txt文件，原始波形
