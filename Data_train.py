@@ -77,8 +77,11 @@ if __name__=="__main__":
     model = keras.models.Sequential()
 
     model.add(Dense(128, input_dim=150, activation='relu'))
-    model.add(Dense(128, activation='relu'))
-    model.add(Dense(128, activation='relu'))
+    model.add(Dense(64, activation='relu'))
+    model.add(Dense(32, activation='relu'))
+    model.add(Dense(16, activation='relu'))
+    model.add(Dense(8, activation='relu'))
+    model.add(Dense(4, activation='relu'))
     model.add(Dense(2, activation='softmax'))
 
     # 查看定义的模型
@@ -89,7 +92,7 @@ if __name__=="__main__":
     model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
 
     # # 训练
-    history = model.fit(train_data, train_label, epochs=10, batch_size=1,verbose=1)
+    history = model.fit(train_data, train_label, epochs=10, batch_size=2,verbose=1)
 
     print(history.params)
 
