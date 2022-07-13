@@ -60,7 +60,7 @@ if __name__=="__main__":
     print(train_data.shape, train_label.shape)
 
     # 增加一维轴
-    train_data = train_data.reshape(-1,16,150)
+    # train_data = train_data.reshape(-1,16,150)
     print(train_data.shape)
     # 对标签进行独热编码
 
@@ -70,36 +70,16 @@ if __name__=="__main__":
     # train_label = np.expand_dims(train_label, axis=0)
     print(train_label.reshape(16,2))
 
+    print(train_data)
+    print(train_label)
+
     # 构建顺序模型
     model = keras.models.Sequential()
 
-    # 卷积层1 + relu
-    # 25 卷积核的数量 即输出的维度
-    # 3 每个过滤器的长度
-    model.add(Conv1D(32, 3, activation='relu', input_shape=(16, 150), padding="same"))
-    # 池化层1
-    model.add(MaxPool1D(pool_size=3, strides=3))
-
-    # 卷积层2 + relu
-    model.add(Conv1D(64, 3, strides=1, activation='relu', padding='same'))
-    # 池化层2
-    model.add(MaxPool1D(pool_size=3, strides=3))
-
-    # 神经元随机失活
-    model.add(Dropout(0.25))
-    # 拉成一维数据
-    model.add(Flatten())
-    # 全连接层1
-    model.add(Dense(1024))
-    # 激活层
-    model.add(Activation('relu'))
-
-    # 随机失活
-    model.add(Dropout(0.4))
-    # 全连接层2
-    model.add(Dense(2))
-    # Softmax评分
-    model.add(Activation('softmax'))
+    model.add(Dense(128, input_dim=150, activation='relu'))
+    model.add(Dense(128, activation='relu'))
+    model.add(Dense(128, activation='relu'))
+    model.add(Dense(2, activation='softmax'))
 
     # 查看定义的模型
     model.summary()
@@ -108,7 +88,7 @@ if __name__=="__main__":
     sgd = keras.optimizers.SGD(lr=0.01, decay=1e-4, momentum=0.9, nesterov=True)
     model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    # 训练
+    # # 训练
     history = model.fit(train_data, train_label, epochs=10, batch_size=1,verbose=1)
 
     print(history.params)
